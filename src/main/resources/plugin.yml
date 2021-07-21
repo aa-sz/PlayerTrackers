@@ -1,0 +1,15 @@
+name: PlayerTrackers
+version: @version@
+main: me.asz.playertrackers.PlayerTrackers
+api-version: 1.16
+depend:
+  - NBTAPI
+commands:
+  gettracker:
+    description: Gives you a new tracker item
+    usage: /<command>
+    permission: playertrackers.tracker.get
+  track:
+    description: Starts tracking your items
+    usage: /<command>
+    permission: playertrackers.tracker.use
