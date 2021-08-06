@@ -1,7 +1,7 @@
 package me.asz.playertrackers.command;
 
 import de.tr7zw.nbtapi.NBTItem;
-import me.asz.playertrackers.TrackerService;
+import me.asz.playertrackers.service.TrackerService;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -31,6 +31,8 @@ public class GetTrackerCommand implements CommandExecutor {
             item = nbtItem.getItem();
 
             player.getInventory().addItem(item);
+
+            return true;
         }
 
         return false;

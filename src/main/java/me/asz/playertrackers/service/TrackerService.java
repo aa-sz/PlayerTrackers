@@ -1,7 +1,7 @@
-package me.asz.playertrackers;
+package me.asz.playertrackers.service;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
+import me.asz.playertrackers.service.holder.TrackedEntity;
+import me.asz.playertrackers.service.holder.TrackerHolder;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -28,14 +28,14 @@ public class TrackerService {
     }
 
     public UUID createTracker(Player owner) {
-        Tracker tracker = new Tracker(UUID.randomUUID(), owner, owner.getInventory());
+        Tracker tracker = new Tracker(UUID.randomUUID(), owner, new TrackedEntity(owner));
         addTracker(tracker);
 
         return tracker.getUUID();
     }
 
     public void addTracker(Tracker tracker) {
-        ArrayList<UUID> ownerTrackerList = ownerMap.getOrDefault(tracker.getOwner(), new ArrayList<UUID>());
+        ArrayList<UUID> ownerTrackerList = ownerMap.getOrDefault(tracker.getOwner(), new ArrayList<>());
 
         ownerTrackerList.add(tracker.getUUID());
 
@@ -51,11 +51,17 @@ public class TrackerService {
         trackerMap.remove(uuid);
     }
 
-    public void updateHolder(UUID uuid, Inventory newHolder) {
+    public void updateHolder(UUID uuid, TrackerHolder newHolder) {
         trackerMap.get(uuid).setCurrentHolder(newHolder);
     }
 
-    @Nullable
+    public ArrayList<UUID> getTrackers(Player owner) {
+        if(owner == null)
+            return null;
+
+        return ownerMap.get(owner);
+    }
+
     public Location getTrackerLocation(UUID uuid) {
         Tracker tracker = trackerMap.get(uuid);
         if (tracker != null)
