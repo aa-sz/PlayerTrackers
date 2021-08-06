@@ -3,7 +3,7 @@ package me.asz.playertrackers.service.holder;
 import org.bukkit.Location;
 import org.bukkit.inventory.Inventory;
 
-public class TrackedInventory extends TrackerHolder {
+public class TrackedInventory extends TrackedHolder {
 
     private Inventory inventory;
 

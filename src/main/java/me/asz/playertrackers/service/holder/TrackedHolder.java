@@ -2,7 +2,7 @@ package me.asz.playertrackers.service.holder;
 
 import org.bukkit.Location;
 
-public abstract class TrackerHolder {
+public abstract class TrackedHolder {
 
     private Location lastLocation;
 

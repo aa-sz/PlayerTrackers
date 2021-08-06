@@ -1,10 +1,9 @@
 package me.asz.playertrackers.service;
 
 import me.asz.playertrackers.service.holder.TrackedEntity;
-import me.asz.playertrackers.service.holder.TrackerHolder;
+import me.asz.playertrackers.service.holder.TrackedHolder;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,7 +50,7 @@ public class TrackerService {
         trackerMap.remove(uuid);
     }
 
-    public void updateHolder(UUID uuid, TrackerHolder newHolder) {
+    public void updateHolder(UUID uuid, TrackedHolder newHolder) {
         trackerMap.get(uuid).setCurrentHolder(newHolder);
     }
 

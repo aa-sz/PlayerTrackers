@@ -1,18 +1,16 @@
 package me.asz.playertrackers.listener;
 
 import de.tr7zw.nbtapi.NBTItem;
-import javafx.scene.media.Track;
 import me.asz.playertrackers.service.TrackerService;
 import me.asz.playertrackers.service.holder.TrackedEntity;
 import me.asz.playertrackers.service.holder.TrackedInventory;
-import me.asz.playertrackers.service.holder.TrackerHolder;
+import me.asz.playertrackers.service.holder.TrackedHolder;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
-import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.inventory.InventoryPickupItemEvent;
@@ -21,7 +19,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class TrackerMoveListener implements Listener {
 
-    private void handleItemMove(ItemStack item, TrackerHolder holder) {
+    private void handleItemMove(ItemStack item, TrackedHolder holder) {
         NBTItem nbtItem = new NBTItem(item);
 
         if (nbtItem.hasKey("tracker")) {

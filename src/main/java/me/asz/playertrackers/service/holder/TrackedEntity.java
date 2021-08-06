@@ -3,7 +3,7 @@ package me.asz.playertrackers.service.holder;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 
-public class TrackedEntity extends TrackerHolder {
+public class TrackedEntity extends TrackedHolder {
     private Entity entity;
 
     public TrackedEntity(Entity _entity) {
