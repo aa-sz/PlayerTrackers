@@ -1,9 +1,11 @@
 package me.asz.playertrackers.service;
 
+import de.tr7zw.nbtapi.NBTItem;
 import me.asz.playertrackers.service.holder.TrackedEntity;
 import me.asz.playertrackers.service.holder.TrackedHolder;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +26,10 @@ public class TrackerService {
             service = new TrackerService();
 
         return service;
+    }
+
+    public boolean hasTracker(UUID tracker) {
+        return trackerMap.containsKey(tracker);
     }
 
     public UUID createTracker(Player owner) {
@@ -48,6 +54,14 @@ public class TrackerService {
         ownerMap.get(owner).remove(uuid);
 
         trackerMap.remove(uuid);
+    }
+
+    public void deleteTracker(NBTItem nbtItem) {
+        deleteTracker(nbtItem.getUUID("tracker"));
+    }
+
+    public void deleteTracker(ItemStack item) {
+        deleteTracker(new NBTItem(item));
     }
 
     public void updateHolder(UUID uuid, TrackedHolder newHolder) {
