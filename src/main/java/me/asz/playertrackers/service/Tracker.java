@@ -7,8 +7,8 @@ import java.util.UUID;
 
 public class Tracker {
 
-    private UUID uuid;
-    private Player owner;
+    private final UUID uuid;
+    private final Player owner;
     private TrackedHolder currentHolder;
 
     public Tracker(UUID _uuid, Player _owner, TrackedHolder _currentHolder) {
