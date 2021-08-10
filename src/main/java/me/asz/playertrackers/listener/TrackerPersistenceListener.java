@@ -1,6 +1,7 @@
 package me.asz.playertrackers.listener;
 
 import de.tr7zw.nbtapi.NBTItem;
+import me.asz.playertrackers.ItemUtil;
 import me.asz.playertrackers.service.TrackerService;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
@@ -12,11 +13,19 @@ import org.bukkit.event.player.PlayerItemBreakEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
+import java.util.UUID;
+
 public class TrackerPersistenceListener implements Listener {
 
     private boolean isItemTracker(ItemStack item) {
-        NBTItem nbtItem = new NBTItem(item);
-        return nbtItem.hasKey("tracker") && TrackerService.getInstance().hasTracker(nbtItem.getUUID("tracker"));
+        List<UUID> trackers = ItemUtil.getTrackers(item);
+        for (UUID uuid : trackers) {
+            if (TrackerService.getInstance().hasTracker(uuid))
+                return true;
+        }
+
+        return false;
     }
 
     @EventHandler

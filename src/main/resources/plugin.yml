@@ -9,6 +9,10 @@ commands:
     description: Gives you a new tracker item
     usage: /<command>
     permission: playertrackers.tracker.get
+  addtracker:
+    description: Adds a tracker to your holding item.
+    usage: /<command>
+    permission: playertrackers.tracker.get
   track:
     description: Starts tracking your items
     usage: /<command>

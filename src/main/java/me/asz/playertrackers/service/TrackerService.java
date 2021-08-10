@@ -1,6 +1,7 @@
 package me.asz.playertrackers.service;
 
 import de.tr7zw.nbtapi.NBTItem;
+import me.asz.playertrackers.ItemUtil;
 import me.asz.playertrackers.event.TrackerCreateEvent;
 import me.asz.playertrackers.event.TrackerDeleteEvent;
 import me.asz.playertrackers.event.TrackerUpdateHolderEvent;
@@ -14,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class TrackerService {
@@ -79,12 +81,18 @@ public class TrackerService {
         }
     }
 
+    public void deleteTracker(List<UUID> uuidList, TrackerDeleteReason reason) {
+        for (UUID uuid : uuidList) {
+            deleteTracker(uuid, reason);
+        }
+    }
+
     public void deleteTracker(NBTItem nbtItem, TrackerDeleteReason reason) {
-        deleteTracker(nbtItem.getUUID("tracker"), reason);
+        deleteTracker(ItemUtil.getTrackers(nbtItem), reason);
     }
 
     public void deleteTracker(ItemStack item, TrackerDeleteReason reason) {
-        deleteTracker(new NBTItem(item), reason);
+        deleteTracker(ItemUtil.getTrackers(item), reason);
     }
 
     public void deleteTracker(UUID uuid) {

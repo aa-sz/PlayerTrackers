@@ -1,5 +1,6 @@
 package me.asz.playertrackers;
 
+import me.asz.playertrackers.command.AddTrackerCommand;
 import me.asz.playertrackers.command.GetTrackerCommand;
 import me.asz.playertrackers.command.TrackCommand;
 import me.asz.playertrackers.listener.LogListener;
@@ -13,6 +14,7 @@ public final class PlayerTrackers extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         getCommand("gettracker").setExecutor(new GetTrackerCommand());
+        getCommand("addtracker").setExecutor(new AddTrackerCommand());
         getCommand("track").setExecutor(new TrackCommand());
 
         getServer().getPluginManager().registerEvents(new TrackerMoveListener(), this);

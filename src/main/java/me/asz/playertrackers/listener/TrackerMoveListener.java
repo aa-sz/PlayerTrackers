@@ -1,6 +1,7 @@
 package me.asz.playertrackers.listener;
 
 import de.tr7zw.nbtapi.NBTItem;
+import me.asz.playertrackers.ItemUtil;
 import me.asz.playertrackers.service.TrackerService;
 import me.asz.playertrackers.service.holder.TrackedEntity;
 import me.asz.playertrackers.service.holder.TrackedInventory;
@@ -17,14 +18,16 @@ import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
+import java.util.UUID;
+
 public class TrackerMoveListener implements Listener {
 
     private void handleItemMove(ItemStack item, TrackedHolder holder) {
-        NBTItem nbtItem = new NBTItem(item);
-
-        if (nbtItem.hasKey("tracker")) {
-            Bukkit.getLogger().info("Item moved!");
-            TrackerService.getInstance().updateHolder(nbtItem.getUUID("tracker"), holder);
+        List<UUID> itemTrackers = ItemUtil.getTrackers(item);
+        for (UUID uuid : itemTrackers) {
+            Bukkit.getLogger().info("Tracker {" + uuid.toString() + "} moved!");
+            TrackerService.getInstance().updateHolder(uuid, holder);
         }
     }
 
@@ -67,13 +70,8 @@ public class TrackerMoveListener implements Listener {
             case HOTBAR_MOVE_AND_READD:
                 hotbarItem = e.getWhoClicked().getInventory().getItem(e.getHotbarButton());
 
-                NBTItem hotbarNBT = new NBTItem(hotbarItem);
-                NBTItem clickedNBT = new NBTItem(clickedItem);
-
-                if (hotbarNBT.hasKey("tracker"))
-                    TrackerService.getInstance().updateHolder(hotbarNBT.getUUID("tracker"), new TrackedInventory(e.getView().getBottomInventory()));
-                if (clickedNBT.hasKey("tracker"))
-                    TrackerService.getInstance().updateHolder(clickedNBT.getUUID("tracker"), new TrackedInventory(e.getClickedInventory()));
+                handleItemMove(hotbarItem, new TrackedInventory(e.getClickedInventory()));
+                handleItemMove(clickedItem, new TrackedInventory(e.getView().getBottomInventory()));
                 break;
             case HOTBAR_SWAP:
                 hotbarItem = e.getWhoClicked().getInventory().getItem(e.getHotbarButton());
