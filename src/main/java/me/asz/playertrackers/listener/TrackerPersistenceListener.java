@@ -2,6 +2,7 @@ package me.asz.playertrackers.listener;
 
 import de.tr7zw.nbtapi.NBTItem;
 import me.asz.playertrackers.ItemUtil;
+import me.asz.playertrackers.event.reason.TrackerDeleteReason;
 import me.asz.playertrackers.service.TrackerService;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
@@ -42,7 +43,7 @@ public class TrackerPersistenceListener implements Listener {
             if (isItemTracker(item)) {
                 e.setCancelled(true);
 
-                TrackerService.getInstance().deleteTracker(item);
+                TrackerService.getInstance().deleteTracker(item, TrackerDeleteReason.ITEM_DESTROYED);
                 e.getEntity().remove();
             }
         }
@@ -51,14 +52,14 @@ public class TrackerPersistenceListener implements Listener {
     @EventHandler
     public void onItemConsume(PlayerItemConsumeEvent e) {
         if (isItemTracker(e.getItem())) {
-            TrackerService.getInstance().deleteTracker(e.getItem());
+            TrackerService.getInstance().deleteTracker(e.getItem(), TrackerDeleteReason.ITEM_CONSUMED);
         }
     }
 
     @EventHandler
     public void onItemBreak(PlayerItemBreakEvent e) {
         if (isItemTracker(e.getBrokenItem())) {
-            TrackerService.getInstance().deleteTracker(e.getBrokenItem());
+            TrackerService.getInstance().deleteTracker(e.getBrokenItem(), TrackerDeleteReason.ITEM_BROKEN);
         }
     }
 
